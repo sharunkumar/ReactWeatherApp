@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
-import DailyWeather from './DailyWeather';
 import { TextField } from '@material-ui/core'
 import axios from 'axios';
 import moment from 'moment';
@@ -30,11 +28,12 @@ class Weather extends Component {
         // });
     }
     getWeatherData = () => {
-        axios.get(`http://api.openweathermap.org/data/2.5/forecast?q=${this.state.city}&appid=0ce1656a7050b139e3b9076692956ae0`)
+        axios.get(`http://api.openweathermap.org/data/2.5/forecast?q=${this.state.city}&units=metric&appid=0ce1656a7050b139e3b9076692956ae0`)
             .then(res => {
                 const weatherData = res?.data?.list;
                 localStorage.setItem('location', JSON.stringify(res?.data?.city));
                 localStorage.setItem('city', this.state.city);
+                console.log({ weatherData })
                 this.setState({ weatherData, city: this.state.city });
             })
             .catch(err => {
@@ -45,7 +44,7 @@ class Weather extends Component {
     searchCity = (event) => {
         event.preventDefault();
         this.getWeatherData();
-        
+
     }
     handleChange = ({ target }) => {
         this.setState({
@@ -82,7 +81,7 @@ class Weather extends Component {
             console.log(data);
             localStorage.setItem('fullData', JSON.stringify(data));
             isWeather = true;
-            const abcData = data.map((obj, i) => {
+            data.forEach((obj, i) => {
                 let newDate = new Date(obj.dt_txt);
                 const imgURL = `owf owf-${obj.weather[0].id} owf-5x`;
                 card.push(
@@ -91,11 +90,11 @@ class Weather extends Component {
                         <p className="text-muted" key={`p_${i}`}>{moment(newDate).format('MMMM Do')}</p>
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
                             <i className={imgURL} key={`i_${i}`}></i>
-                            <h2 key={`h2_${i}`} style={{ margin: 'auto 5px' }}>{Math.round(obj.main.temp)}<sup>°F</sup></h2>
+                            <h2 key={`h2_${i}`} style={{ margin: 'auto 5px' }}>{Math.round(obj.main.temp)}<sup>°C</sup></h2>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            <h2 key={`h4_${i}`} style={{ margin: 'auto 5px' }}>{Math.round(obj.main.temp_max)}<sup>°F</sup></h2>
-                            <h2 key={`h5_${i}`} style={{ margin: 'auto 5px', color: '#bababa' }}>{Math.round(obj.main.temp_min)}<sup>°F</sup></h2>
+                            <h2 key={`h4_${i}`} style={{ margin: 'auto 5px' }}>{Math.round(obj.main.temp_max)}<sup>°C</sup></h2>
+                            <h2 key={`h5_${i}`} style={{ margin: 'auto 5px', color: '#bababa' }}>{Math.round(obj.main.temp_min)}<sup>°C</sup></h2>
                         </div>
                         <div className="card-body" key={`card_${i}`}>
                             <p className="card-text" key={`pdesc_${i}`}>{obj.weather[0].description}</p>
@@ -115,7 +114,7 @@ class Weather extends Component {
                                 variant="outlined"
                                 defaultValue={this.state.city}
                                 value={this.state.city}
-                                type="text" value={this.state.value} onChange={this.handleChange} name="city" id="inputSearchCity" placeholder="Search City..."
+                                type="text" onChange={this.handleChange} name="city" id="inputSearchCity" placeholder="Search City..."
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
@@ -127,7 +126,7 @@ class Weather extends Component {
                 </div>
                 {this.state.weatherData.length ? (
                     <div className='rightbg' style={{ width: this.state.weatherData.length ? '80%' : '0%' }}>
-                        <h1 className='header-title'>Weather Forecast App</h1>
+                        <h1 className='header-title'>Weather for the week</h1>
                         <div style={{ display: 'flex' }}>
                             {isWeather && card}
                         </div>

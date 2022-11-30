@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import moment from 'moment';
 
 class DailyWeather extends Component {
@@ -21,7 +20,7 @@ class DailyWeather extends Component {
         const card = [];
         const { currentDailyWeather, city } = this.state;
         if (this.state.data.length) {
-            const abcData = this.state.data.map((obj, i) => {
+            this.state.data.forEach((obj, i) => {
                 let newDate = new Date(obj.dt_txt);
                 const imgURL = `owf owf-${obj.weather[0].id} owf-5x`;
                 card.push(
@@ -30,11 +29,11 @@ class DailyWeather extends Component {
                         <p className="text-muted" key={`p_${i}`}>{moment(newDate).format('MMMM Do, h:mm a')}</p>
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
                             <i className={imgURL} key={`i_${i}`}></i>
-                            <h2 key={`h2_${i}`} style={{ margin: 'auto 5px' }}>{Math.round(obj.main.temp)}<sup>°F</sup></h2>
+                            <h2 key={`h2_${i}`} style={{ margin: 'auto 5px' }}>{Math.round(obj.main.temp)}<sup>°C</sup></h2>
                         </div>
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
-                            <h2 key={`h4_${i}`} style={{ margin: 'auto 5px' }}>{Math.round(obj.main.temp_max)}<sup>°F</sup></h2>
-                            <h2 key={`h5_${i}`} style={{ margin: 'auto 5px', color: '#bababa' }}>{Math.round(obj.main.temp_min)}<sup>°F</sup></h2>
+                            <h2 key={`h4_${i}`} style={{ margin: 'auto 5px' }}>{Math.round(obj.main.temp_max)}<sup>°C</sup></h2>
+                            <h2 key={`h5_${i}`} style={{ margin: 'auto 5px', color: '#bababa' }}>{Math.round(obj.main.temp_min)}<sup>°C</sup></h2>
                         </div>
                         <div className="card-body" key={`card_${i}`}>
                             <p className="card-text" key={`pdesc_${i}`}>{obj.weather[0].description}</p>
@@ -47,11 +46,11 @@ class DailyWeather extends Component {
         const imgURL1 = `owf owf-${currentDailyWeather.weather[0].id} owf-5x`;
         return (
             <div className='rightbg widthSpacing'>
-                <h1 className='header-title'>Weather Forecast App</h1>
+                <h1 className='header-title'>Weather for the day</h1>
                 <div className='currentTemp'>
                     <div style={{ display: 'flex' }}>
                         <i className={imgURL1}></i>
-                        <h2 className='degreeHead'>{Math.round(currentDailyWeather.main.temp)}<sup className='supDegree'>°F</sup></h2>
+                        <h2 className='degreeHead'>{Math.round(currentDailyWeather.main.temp)}<sup className='supDegree'>°C</sup></h2>
                     </div>
                     <div className='speed'>
                         <div className='subHead'>Humidity: {currentDailyWeather.main.humidity}%</div>
