@@ -4,7 +4,7 @@ REACT ASSIGNMENT
 
 Task:1 -  Please submit the React-Redux lab done in the class with this assignment
 
-URL: https://www.tutorialspoint.com/redux/redux_react_example.htm (Links to an external site.) 
+URL: https://www.tutorialspoint.com/redux/redux_react_example.htm
 
 Task:2 - 
 
