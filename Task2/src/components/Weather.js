@@ -19,7 +19,7 @@ class Weather extends Component {
         this.state.city && this.getWeatherData();
     }
     getWeatherData = () => {
-        axios.get(`http://api.openweathermap.org/data/2.5/forecast?q=${this.state.city}&units=metric&appid=0ce1656a7050b139e3b9076692956ae0`)
+        axios.get(`http://api.openweathermap.org/data/2.5/forecast?q=${this.state.city}&units=metric&appid=50695dd9483711eed342b9e9e82493cf`)
             .then(res => {
                 const weatherData = res?.data?.list;
                 localStorage.setItem('location', JSON.stringify(res?.data?.city));
@@ -103,6 +103,7 @@ class Weather extends Component {
                                 defaultValue={this.state.city}
                                 value={this.state.city}
                                 type="text" onChange={this.handleChange} name="city" id="inputSearchCity" placeholder="Search City..."
+                                autoComplete='off'
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
