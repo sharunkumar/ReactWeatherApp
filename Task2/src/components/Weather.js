@@ -16,16 +16,7 @@ class Weather extends Component {
         }
     }
     componentDidMount() {
-        // const a = {};
         this.state.city && this.getWeatherData();
-        // navigator.geolocation.getCurrentPosition(function (position) {
-        //     a.latitude = position.coords.latitude;
-        //     a.longitude = position.coords.longitude;
-        // });
-        // this.setState({
-        //     latitude: a.latitude,
-        //     longitude: a.longitude
-        // });
     }
     getWeatherData = () => {
         axios.get(`http://api.openweathermap.org/data/2.5/forecast?q=${this.state.city}&units=metric&appid=0ce1656a7050b139e3b9076692956ae0`)
@@ -74,10 +65,7 @@ class Weather extends Component {
                     data.push(item)
                 }
             }
-            // const currentTime = new Date().getHours()
-            // const timerCalculation = currentTime > 12 ? String(Math.floor(currentTime / 3) * 3) : (12 - Math.floor(currentTime / 3)).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false })
-            // console.log(timerCalculation + ':00:00', 'time')
-            // const data = this.state.weatherData?.filter(data => data.dt_txt.includes(timerCalculation + ':00:00'));
+
             console.log(data);
             localStorage.setItem('fullData', JSON.stringify(data));
             isWeather = true;

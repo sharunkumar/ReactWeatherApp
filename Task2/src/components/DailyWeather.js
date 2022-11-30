@@ -4,11 +4,7 @@ import moment from 'moment';
 class DailyWeather extends Component {
     constructor(props) {
         super(props);
-        // this.state = {
-        //     data: JSON.parse(props.location.state.dailyWeather),
-        //     currentDailyWeather: JSON.parse(props.location.state.currentDailyWeather),
-        //     city: JSON.parse(props.location.state.location)
-        // }
+
         this.state = {
             data: JSON.parse(localStorage.getItem('dailyWeather')),
             currentDailyWeather: JSON.parse(localStorage.getItem('currentDailyWeather')),
